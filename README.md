@@ -1,6 +1,6 @@
 # ScyScannerApplication_V2
 
-Android application to help tourists all over the world. Want to find a cheapest route? Or you want just to find a car, to drive all night! Maybe, you just want a hotel for few nights? This application will help you!
+Android application to help tourists all over the world. Want to find a cheapest route? Or you want just to find a car, to drive all night! Maybe, you just want a hotel for few days? This application will help you!
 
 Provides different field of features, such as:
 
