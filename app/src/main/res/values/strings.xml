@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">ScyScannerApplication_V2</string>
+    <string name="title_activity_main">MainActivity</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="flights">Flights</string>
+    <string name="car_rent">Car rent</string>
+    <string name="hotel_book">Hotel book</string>
+    <string name="settings">Settings</string>
+    <string name="information">Information</string>
+    <string name="other">Other</string>
 </resources>

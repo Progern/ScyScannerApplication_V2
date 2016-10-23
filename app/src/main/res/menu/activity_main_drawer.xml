@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_flights"
+            android:icon="@drawable/nav_plane_icon"
+            android:title="@string/flights" />
+        <item
+            android:id="@+id/nav_cars"
+            android:icon="@drawable/nav_car_icon"
+            android:title="@string/car_rent" />
+        <item
+            android:id="@+id/nav_hotels"
+            android:icon="@drawable/nav_hotel_icon"
+            android:title="@string/hotel_book" />
+
+    </group>
+
+    <item android:title="@string/other">
+        <menu>
+            <item
+                android:id="@+id/nav_settings"
+                android:icon="@drawable/ic_menu_manage"
+                android:title="@string/settings" />
+            <item
+                android:id="@+id/nav_info"
+                android:icon="@drawable/nav_info_icon"
+                android:title="@string/information" />
+        </menu>
+    </item>
+
+</menu>
