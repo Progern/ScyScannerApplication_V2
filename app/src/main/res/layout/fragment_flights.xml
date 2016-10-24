@@ -1,0 +1,87 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="progernapplications.scyscannerapplication_v2.FlightsFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <RelativeLayout
+        android:id="@+id/locations"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="20dp">
+
+        <EditText
+            android:id="@+id/outbound_text"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="40dp"
+            android:background="@drawable/locations_frame"
+            android:hint="Outbound location"
+            android:textColor="@color/colorPrimaryText"
+            android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/inbound_text"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/outbound_text"
+            android:layout_below="@+id/change_routes_imgbut"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/locations_frame"
+            android:hint="Inbound location"
+            android:textColor="@color/colorPrimaryText"
+            android:textSize="20sp" />
+
+        <ImageView
+            android:id="@+id/change_routes_imgbut"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_below="@+id/outbound_text"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/change_locations" />
+
+        <EditText
+            android:id="@+id/outbound_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/inbound_text"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="40dp"
+            android:background="@drawable/locations_frame"
+            android:hint="Outbound date"
+            android:textColor="@color/colorPrimaryText"
+            android:textSize="15sp" />
+
+        <EditText
+            android:id="@+id/inbound_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignTop="@+id/outbound_date"
+            android:layout_marginRight="15dp"
+            android:background="@drawable/locations_frame"
+            android:hint="Inbound date"
+            android:textColor="@color/colorPrimaryText"
+            android:textSize="15sp" />
+
+        <Button
+            android:id="@+id/search_button"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="30dp"
+            android:background="@drawable/search_button"
+            android:text="Search"
+            android:textColor="@color/colorPrimary" />
+
+    </RelativeLayout>
+
+</FrameLayout>

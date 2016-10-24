@@ -13,6 +13,10 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
 
+    public String currency;
+    public String marketCountry;
+    public String localization;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,7 +34,9 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        drawer.openDrawer(GravityCompat.START);
+        // Starting fragment
+        // Will do welcome fragment later
+        getSupportFragmentManager().beginTransaction().replace(R.id.mainFrame, new FlightsFragment()).commit();
     }
 
     @Override
@@ -76,6 +82,14 @@ public class MainActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // While clicking on drawer items
         // Will be our main menu in this app
+
+        switch (item.getItemId()) {
+            case R.id.nav_flights:
+                getSupportFragmentManager().beginTransaction().replace(R.id.mainFrame, new FlightsFragment()).commit();
+                break;
+            case R.id.nav_settings:
+                getSupportFragmentManager().beginTransaction().replace(R.id.mainFrame, new SettingsFragment()).commit();
+        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

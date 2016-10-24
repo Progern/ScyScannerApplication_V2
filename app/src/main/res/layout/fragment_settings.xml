@@ -1,0 +1,44 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="progernapplications.scyscannerapplication_v2.SettingsFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <AutoCompleteTextView
+            android:id="@+id/currency_autocomp"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/locations_frame"
+            android:hint="Currency" />
+
+        <AutoCompleteTextView
+            android:id="@+id/marketCountry_autocomp"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/currency_autocomp"
+            android:layout_below="@+id/currency_autocomp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/locations_frame"
+            android:hint="Market country" />
+
+        <AutoCompleteTextView
+            android:id="@+id/locale_autocomp"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/marketCountry_autocomp"
+            android:layout_below="@+id/marketCountry_autocomp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/locations_frame"
+            android:hint="Language" />
+
+    </RelativeLayout>
+</FrameLayout>
