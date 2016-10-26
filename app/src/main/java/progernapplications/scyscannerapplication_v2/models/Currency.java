@@ -1,4 +1,4 @@
-package progernapplications.scyscannerapplication_v2;
+package progernapplications.scyscannerapplication_v2.models;
 
 
 public class Currency {

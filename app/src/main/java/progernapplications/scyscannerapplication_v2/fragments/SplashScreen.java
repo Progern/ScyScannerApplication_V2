@@ -1,4 +1,4 @@
-package progernapplications.scyscannerapplication_v2;
+package progernapplications.scyscannerapplication_v2.fragments;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -6,6 +6,9 @@ import android.os.Bundle;
 import android.os.Handler;
 
 import com.eyalbira.loadingdots.LoadingDots;
+
+import progernapplications.scyscannerapplication_v2.MainActivity;
+import progernapplications.scyscannerapplication_v2.R;
 
 public class SplashScreen extends Activity {
 

@@ -9,6 +9,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
+import progernapplications.scyscannerapplication_v2.fragments.FlightsFragment;
+import progernapplications.scyscannerapplication_v2.fragments.SettingsFragment;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
