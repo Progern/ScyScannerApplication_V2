@@ -8,6 +8,9 @@ import java.util.List;
 
 public class Locales {
 
+    // This is a help class to handle HTTP-Request from ScyScanner API
+    // It is used as a holder of locales list
+
     @Expose
     @SerializedName("Locales")
     private List<Locale> locales;

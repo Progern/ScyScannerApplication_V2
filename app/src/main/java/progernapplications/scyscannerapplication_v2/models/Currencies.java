@@ -6,16 +6,15 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class Markets {
-
+public class Currencies {
     // This is a help class to handle HTTP-Request from ScyScanner API
-    // It is used as a holder of markets list
+    // It is used as a holder of currencies list
 
     @Expose
-    @SerializedName("Countries")
-    private List<MarketCountry> marketsList;
+    @SerializedName("Currencies")
+    private List<Currency> currencies;
 
-    public List<MarketCountry> getMarkets() {
-        return marketsList;
+    public List<Currency> getCurrencies() {
+        return currencies;
     }
 }
