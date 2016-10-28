@@ -1,14 +1,12 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.SettingsFragment">
-
-    <!-- TODO: Update blank fragment layout -->
+    android:orientation="vertical">
 
     <RelativeLayout
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
         <AutoCompleteTextView
             android:id="@+id/currency_autocomp"
@@ -16,7 +14,7 @@
             android:layout_height="wrap_content"
             android:layout_alignStart="@+id/marketCountry_autocomp"
             android:layout_alignTop="@+id/view2"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:background="@drawable/locations_frame"
             android:hint="Currency" />
 
@@ -26,7 +24,7 @@
             android:layout_height="1dp"
             android:layout_alignParentStart="true"
             android:layout_below="@+id/locale_autocomp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:background="@android:color/darker_gray" />
 
         <AutoCompleteTextView
@@ -35,7 +33,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/view"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:background="@drawable/locations_frame"
             android:hint="Market country" />
 
@@ -45,7 +43,7 @@
             android:layout_height="1dp"
             android:layout_alignParentStart="true"
             android:layout_below="@+id/marketCountry_autocomp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:background="@android:color/darker_gray" />
 
         <AutoCompleteTextView
@@ -54,7 +52,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:background="@drawable/locations_frame"
             android:hint="Language" />
 
@@ -63,8 +61,8 @@
             android:layout_width="200dp"
             android:layout_height="30dp"
             android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="100dp"
+            android:layout_alignStart="@+id/currency_autocomp"
+            android:layout_marginBottom="10dp"
             android:background="@drawable/search_button"
             android:text="Submit"
             android:textColor="@color/colorPrimary" />
@@ -96,5 +94,6 @@
             android:layout_marginRight="10dp"
             android:src="@drawable/currency_icon" />
 
+
     </RelativeLayout>
-</FrameLayout>
+</LinearLayout>

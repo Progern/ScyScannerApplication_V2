@@ -1,7 +1,9 @@
 package progernapplications.scyscannerapplication_v2.fragments;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.Toast;
 
 import java.util.List;
@@ -27,7 +30,7 @@ import retrofit.Callback;
 import retrofit.Response;
 
 
-public class SettingsFragment extends Fragment implements AdapterView.OnItemClickListener {
+public class SettingsFragment extends Fragment implements AdapterView.OnItemClickListener, View.OnClickListener {
 
 
     private AutoCompleteTextView localesText, marketCountryText, currencyText;
@@ -38,8 +41,9 @@ public class SettingsFragment extends Fragment implements AdapterView.OnItemClic
     private List<MarketCountry> markets;
     private List<Currency> currencies;
     private List<Locale> locales;
+    private Context context;
 
-    private String localesCode, marketCountryCode, currencyCode;
+    private Snackbar successBar;
 
 
 
@@ -47,14 +51,17 @@ public class SettingsFragment extends Fragment implements AdapterView.OnItemClic
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View myView = inflater.inflate(R.layout.fragment_settings, container, false);
+        getActivity().setTitle("Settings");
         localesText = (AutoCompleteTextView) myView.findViewById(R.id.locale_autocomp);
+        context = getActivity().getApplicationContext();
         marketCountryText = (AutoCompleteTextView) myView.findViewById(R.id.marketCountry_autocomp);
         currencyText = (AutoCompleteTextView) myView.findViewById(R.id.currency_autocomp);
         localesText.setOnItemClickListener(this);
-
+        Button submitButton = (Button) myView.findViewById(R.id.settings_submit_button);
+        submitButton.setOnClickListener(this);
         getLocalesRequest();
+        getCurrenciesRequest();
 
-        getCurrencies();
 
         return myView;
     }
@@ -66,43 +73,43 @@ public class SettingsFragment extends Fragment implements AdapterView.OnItemClic
             public void onResponse(Response<Locales> response) {
                 if (response.isSuccess()) {
                     locales = response.body().getLocales();
-                    localeArrayAdapter = new ArrayAdapter<>(getContext(), R.layout.spinner_item_layout, locales);
+                    localeArrayAdapter = new ArrayAdapter<>(context, R.layout.spinner_item_layout, locales);
                     localesText.setAdapter(localeArrayAdapter);
                 } else {
-                    Toast.makeText(getContext(), "Error!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "Error!", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Throwable t) {
-                Toast.makeText(getContext(), "Error!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Error!", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
-    private void getMarketCountries() {
+    private void getMarketCountriesRequest() {
         Call<Markets> call = Network.API.getMarketCountries(Config.ACCEPT, Config.LOCALE);
         call.enqueue(new Callback<Markets>() {
             @Override
             public void onResponse(Response<Markets> response) {
                 if (response.isSuccess()) {
                     markets = response.body().getMarkets();
-                    marketCountryArrayAdapter = new ArrayAdapter<>(getContext(), R.layout.spinner_item_layout, markets);
+                    marketCountryArrayAdapter = new ArrayAdapter<>(context, R.layout.spinner_item_layout, markets);
                     marketCountryText.setAdapter(marketCountryArrayAdapter);
 
-                } else Toast.makeText(getContext(), "Error!", Toast.LENGTH_SHORT).show();
+                } else Toast.makeText(context, "Error!", Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onFailure(Throwable t) {
-                Toast.makeText(getContext(), "Error!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Error!", Toast.LENGTH_SHORT).show();
 
             }
         });
     }
 
 
-    private void getCurrencies() {
+    private void getCurrenciesRequest() {
         Call<Currencies> call = Network.API.getCurrencies(Config.ACCEPT);
         call.enqueue(new Callback<Currencies>() {
             @Override
@@ -110,15 +117,15 @@ public class SettingsFragment extends Fragment implements AdapterView.OnItemClic
 
                 if (response.isSuccess()) {
                     currencies = response.body().getCurrencies();
-                    currencyArrayAdapter = new ArrayAdapter<Currency>(getContext(), R.layout.spinner_item_layout, currencies);
+                    currencyArrayAdapter = new ArrayAdapter<Currency>(context, R.layout.spinner_item_layout, currencies);
                     currencyText.setAdapter(currencyArrayAdapter);
 
-                } else Toast.makeText(getContext(), "Error!", Toast.LENGTH_SHORT).show();
+                } else Toast.makeText(context, "Error!", Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onFailure(Throwable t) {
-                Toast.makeText(getContext(), "Error!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Error!", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -146,11 +153,31 @@ public class SettingsFragment extends Fragment implements AdapterView.OnItemClic
             case R.id.row_item:
                 Config.LOCALE = getLocaleCode(localesText.getText().toString());
                 // We send a request when we have selected preferable locale
-                getMarketCountries();
+                getMarketCountriesRequest();
                 break;
         }
     }
 
 
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.settings_submit_button:
+                try {
+                    Config.MARKET_COUNTRY = getMarketCountryCode(marketCountryText.getText().toString());
+                    Config.CURRENCY = currencyText.getText().toString();
+                    successBar.show();
+                } catch (NullPointerException ex) {
+                }
+                break;
+        }
+    }
 
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        getActivity().setTitle("Settings");
+        successBar = Snackbar.make(getView(), "Your settings have been saved", Snackbar.LENGTH_SHORT);
+
+    }
 }
