@@ -56,7 +56,8 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="20dp"
             android:background="@drawable/locations_frame"
-            android:hint="Language" />
+            android:hint="Language"
+            />
 
         <Button
             android:id="@+id/settings_submit_button"

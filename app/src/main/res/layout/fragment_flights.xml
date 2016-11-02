@@ -82,6 +82,16 @@
             android:text="Search"
             android:textColor="@color/colorPrimary" />
 
+        <Switch
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Inbound"
+            android:id="@+id/inbound_switch"
+            android:textSize="15sp"
+            android:layout_below="@+id/inbound_date"
+            android:layout_alignStart="@+id/inbound_date"
+            android:layout_marginTop="10dp" />
+
     </RelativeLayout>
 
 </FrameLayout>

@@ -61,7 +61,7 @@ public class PlacesAdapter extends ArrayAdapter<Place> {
             TextView countryName = (TextView) convertView.findViewById(R.id.country_name);
 
             placeID.setText(place.getId());
-            placeName.setText(place.getName() + ", ");
+            placeName.setText(place.getName());
             countryName.setText(place.getCountryName());
         } catch (Exception ex) {
             //

@@ -10,6 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.CompoundButton;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import java.util.List;
@@ -37,6 +39,10 @@ public class FlightsFragment extends Fragment implements View.OnClickListener {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View myView = inflater.inflate(R.layout.fragment_flights, container, false);
         Button searchButton = (Button) myView.findViewById(R.id.search_button);
+        final Switch inboundSwitch = (Switch) myView.findViewById(R.id.inbound_switch);
+
+
+
         searchButton.setOnClickListener(this);
         getActivity().setTitle("Flights booking");
 
@@ -58,6 +64,8 @@ public class FlightsFragment extends Fragment implements View.OnClickListener {
             }
         });
 
+
+
         inboundText = (AutoCompleteTextView) myView.findViewById(R.id.inbound_text);
         inboundText.addTextChangedListener(new TextWatcher() {
             @Override
@@ -76,7 +84,16 @@ public class FlightsFragment extends Fragment implements View.OnClickListener {
             }
         });
 
-
+        inboundSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (inboundSwitch.isChecked())
+                {
+                    // Inbound date is visible
+                }
+                else ;// Inbound date is unvisible
+            }
+        });
 
         return myView;
     }
@@ -101,6 +118,7 @@ public class FlightsFragment extends Fragment implements View.OnClickListener {
                         placesList = response.body().getPlaces();
                         mAdapter = new PlacesAdapter(getContext(), R.layout.place_row, placesList);
                         outboundText.setAdapter(mAdapter);
+                        inboundText.setAdapter(mAdapter);
                         mAdapter.notifyDataSetChanged();
                     }
                 }
