@@ -1,10 +1,12 @@
 package progernapplications.scyscannerapplication_v2.fragments;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +20,7 @@ import java.util.List;
 
 import progernapplications.scyscannerapplication_v2.R;
 import progernapplications.scyscannerapplication_v2.config.Config;
+import progernapplications.scyscannerapplication_v2.config.Other;
 import progernapplications.scyscannerapplication_v2.models.Currencies;
 import progernapplications.scyscannerapplication_v2.models.Currency;
 import progernapplications.scyscannerapplication_v2.models.Locale;
@@ -61,6 +64,20 @@ public class SettingsFragment extends Fragment implements AdapterView.OnItemClic
         submitButton.setOnClickListener(this);
         getLocalesRequest();
         getCurrenciesRequest();
+
+        AlertDialog.Builder helpDialogBuilder = new AlertDialog.Builder(getContext());
+        helpDialogBuilder.setTitle("Please notice")
+                .setMessage(Other.SETTINGS_DIALOG_MESSAGE)
+                .setCancelable(false)
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                        Other.ALERT_COUNTER = 1;
+                    }
+                });
+        AlertDialog helpAlert = helpDialogBuilder.create();
+        if (Other.ALERT_COUNTER < 1) helpAlert.show();
 
 
         return myView;
@@ -151,7 +168,7 @@ public class SettingsFragment extends Fragment implements AdapterView.OnItemClic
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
         switch (view.getId()) {
             case R.id.row_item:
-                Config.LOCALE = getLocaleCode(localesText.getText().toString());
+                if(!(localesText.getText().toString().equals(""))) Config.LOCALE = getLocaleCode(localesText.getText().toString());
                 // We send a request when we have selected preferable locale
                 getMarketCountriesRequest();
                 break;
@@ -164,8 +181,8 @@ public class SettingsFragment extends Fragment implements AdapterView.OnItemClic
         switch (view.getId()) {
             case R.id.settings_submit_button:
                 try {
-                    Config.MARKET_COUNTRY = getMarketCountryCode(marketCountryText.getText().toString());
-                    Config.CURRENCY = currencyText.getText().toString();
+                    if (!(marketCountryText.getText().toString().equals(""))) Config.MARKET_COUNTRY = getMarketCountryCode(marketCountryText.getText().toString());
+                    if(!(currencyText.getText().toString().equals(""))) Config.CURRENCY = currencyText.getText().toString();
                     successBar.show();
                 } catch (NullPointerException ex) {
                 }

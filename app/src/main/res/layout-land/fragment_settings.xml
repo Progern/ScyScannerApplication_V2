@@ -16,7 +16,8 @@
             android:layout_alignTop="@+id/view2"
             android:layout_marginTop="10dp"
             android:background="@drawable/locations_frame"
-            android:hint="Currency" />
+            android:hint="Currency"
+            android:inputType="textPhonetic"/>
 
         <View
             android:id="@+id/view"
@@ -35,7 +36,8 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="10dp"
             android:background="@drawable/locations_frame"
-            android:hint="Market country" />
+            android:hint="Market country"
+            android:inputType="textPhonetic"/>
 
         <View
             android:id="@+id/view2"
@@ -54,7 +56,8 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="10dp"
             android:background="@drawable/locations_frame"
-            android:hint="Language" />
+            android:hint="Language*"
+            android:inputType="textPhonetic"/>
 
         <Button
             android:id="@+id/settings_submit_button"
@@ -93,6 +96,16 @@
             android:layout_alignTop="@+id/currency_autocomp"
             android:layout_marginRight="10dp"
             android:src="@drawable/currency_icon" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="*"
+            android:textSize="25sp"
+            android:textColor="@color/colorPrimaryText"
+            android:layout_alignTop="@+id/language_image"
+            android:layout_toEndOf="@+id/locale_autocomp"
+            android:layout_marginLeft="5dp" />
 
 
     </RelativeLayout>

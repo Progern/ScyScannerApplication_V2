@@ -32,6 +32,6 @@ public class Place {
 
     @Override
     public String toString() {
-        return Id;
+        return name + "(" + Id + ")";
     }
 }

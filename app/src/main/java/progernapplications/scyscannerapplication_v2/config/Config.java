@@ -13,5 +13,13 @@ public class Config {
     public static String MARKET_COUNTRY = "US";
     public static String CURRENCY = "USD";
 
+    public static String OUTBOUND_LOCATION = "anywhere";
+    public static String INBOUND_LOCATION = "anywhere";
+
+    public static String OUTBOUND_DATE = "anytime";
+    public static String INBOUND_DATE = "anytime";
+
+
+
 
 }

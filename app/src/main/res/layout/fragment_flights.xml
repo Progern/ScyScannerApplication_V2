@@ -22,7 +22,8 @@
             android:background="@drawable/locations_frame"
             android:hint="Outbound location"
             android:textColor="@color/colorPrimaryText"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:inputType="textPhonetic"/>
 
         <AutoCompleteTextView
             android:id="@+id/inbound_text"
@@ -34,7 +35,8 @@
             android:background="@drawable/locations_frame"
             android:hint="Inbound location"
             android:textColor="@color/colorPrimaryText"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:inputType="textPhonetic"/>
 
         <ImageView
             android:id="@+id/change_routes_imgbut"
@@ -57,7 +59,8 @@
             android:background="@drawable/locations_frame"
             android:hint="Outbound date"
             android:textColor="@color/colorPrimaryText"
-            android:textSize="15sp" />
+            android:textSize="15sp"
+            android:inputType="textPhonetic"/>
 
         <AutoCompleteTextView
             android:id="@+id/inbound_date"
@@ -69,7 +72,8 @@
             android:background="@drawable/locations_frame"
             android:hint="Inbound date"
             android:textColor="@color/colorPrimaryText"
-            android:textSize="15sp" />
+            android:textSize="15sp"
+            android:inputType="textPhonetic"/>
 
         <Button
             android:id="@+id/search_button"
