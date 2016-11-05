@@ -48,7 +48,7 @@
             android:layout_marginTop="20dp"
             android:src="@drawable/change_locations" />
 
-        <AutoCompleteTextView
+        <TextView
             android:id="@+id/outbound_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -62,7 +62,7 @@
             android:textSize="15sp"
             android:inputType="textPhonetic"/>
 
-        <AutoCompleteTextView
+        <TextView
             android:id="@+id/inbound_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
