@@ -45,8 +45,25 @@ public class FlightsFragment extends Fragment implements View.OnClickListener, C
 
     private List<Place> placesList;
     private PlacesAdapter mAdapter;
+    private DatePickerDialog.OnDateSetListener mCallBack = new DatePickerDialog.OnDateSetListener() {
+        @Override
+        public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
+
+            // ***************************************************************************************
+            // This is made, because Android month counter starts from 0, and ScyScanners starts from 1
+            // Plus ScyScanners requests require month formath, if month is < 10 : 01,02,03... etc
+            StringBuffer monthBuf = new StringBuffer();
+            if (i1 >= 10) monthBuf.append((i1 + 1));
+            else monthBuf.append("0" + (i1 + 1));
+            // ***************************************************************************************
 
 
+            if (Other.DATE_SET_CHECKER == 0)
+                outboundDate.setText(i + "-" + monthBuf.toString() + "-" + i2);
+            else if (Other.DATE_SET_CHECKER == 1)
+                inboundDate.setText(i + "-" + monthBuf.toString() + "-" + i2);
+        }
+    };
 
     @Nullable
     @Override
@@ -114,7 +131,7 @@ public class FlightsFragment extends Fragment implements View.OnClickListener, C
 
     // GET Request to suit the user's input with prediction, using ScyScanner AutoSuggestionPlace API
     public void getAutoSuggestLocation(String currentQuery) {
-        if (!(outboundText.getText().toString().equals(""))) {
+        if ((!(outboundText.getText().toString().equals(""))) || (!(inboundText.getText().toString().equals("")))) {
             Call<Places> call = Network.API.getAutoSuggestPlaces(Config.ACCEPT, Config.MARKET_COUNTRY, Config.CURRENCY, Config.LOCALE, currentQuery);
             call.enqueue(new Callback<Places>() {
                 @Override
@@ -153,24 +170,6 @@ public class FlightsFragment extends Fragment implements View.OnClickListener, C
 
         return returnString.toString();
     }
-
-    private DatePickerDialog.OnDateSetListener mCallBack = new DatePickerDialog.OnDateSetListener() {
-        @Override
-        public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
-
-            // ***************************************************************************************
-            // This is made, because Android month counter starts from 0, and ScyScanners starts from 1
-            // Plus ScyScanners requests require month formath, if month is < 10 : 01,02,03... etc
-            StringBuffer monthBuf = new StringBuffer();
-            if(i1 >= 10) monthBuf.append((i1+1));
-            else monthBuf.append("0" + (i1+1));
-            // ***************************************************************************************
-
-
-            if (Other.DATE_SET_CHECKER == 0) outboundDate.setText(i + "-" + monthBuf.toString() + "-" + i2);
-            else if (Other.DATE_SET_CHECKER == 1) inboundDate.setText(i + "-" + monthBuf.toString() + "-" + i2);
-        }
-    };
 
     protected Dialog onCreateDialog() {
         DatePickerDialog mDateDialog = new DatePickerDialog(getContext(), mCallBack, 2016, 0, 1);

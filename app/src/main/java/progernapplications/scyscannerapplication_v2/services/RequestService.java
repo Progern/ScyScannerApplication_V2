@@ -16,12 +16,13 @@ import retrofit.GsonConverterFactory;
 import retrofit.Retrofit;
 import retrofit.http.GET;
 import retrofit.http.Header;
+import retrofit.http.POST;
 import retrofit.http.Path;
 import retrofit.http.Query;
 
 public interface RequestService {
 
-    // Build
+
     public static final Gson GSON = new GsonBuilder()
             .excludeFieldsWithoutExposeAnnotation()
             .create();
@@ -50,5 +51,8 @@ public interface RequestService {
                                       @Path("locale") String locale, @Query("query") String query);
 
 
+    // Tickets request
+    @POST("http://partners.api.skyscanner.net/apiservices/pricing/v1.0")
+    Call<String> createPollSession();
 
 }
