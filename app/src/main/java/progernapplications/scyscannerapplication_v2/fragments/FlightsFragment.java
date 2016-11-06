@@ -20,6 +20,8 @@ import android.widget.Toast;
 
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import progernapplications.scyscannerapplication_v2.R;
 import progernapplications.scyscannerapplication_v2.adapters.PlacesAdapter;
 import progernapplications.scyscannerapplication_v2.config.Config;
@@ -34,12 +36,16 @@ import retrofit.Response;
 
 public class FlightsFragment extends Fragment implements View.OnClickListener, CompoundButton.OnCheckedChangeListener {
 
+    @BindView(R.id.outbound_text) AutoCompleteTextView outboundText;
+    @BindView(R.id.inbound_text) AutoCompleteTextView inboundText;
+    @BindView(R.id.outbound_date) TextView outboundDate;
+    @BindView(R.id.inbound_date) TextView inboundDate;
+    @BindView(R.id.inbound_switch) Switch inboundSwitch;
+    @BindView(R.id.search_button) Button searchButton;
 
-    private AutoCompleteTextView outboundText, inboundText;
     private List<Place> placesList;
     private PlacesAdapter mAdapter;
-    private TextView outboundDate, inboundDate;
-    private Switch inboundSwitch;
+
 
 
     @Nullable
@@ -47,17 +53,9 @@ public class FlightsFragment extends Fragment implements View.OnClickListener, C
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         getActivity().setTitle("Flights booking");
         View myView = inflater.inflate(R.layout.fragment_flights, container, false);
-        Button searchButton = (Button) myView.findViewById(R.id.search_button);
-        inboundSwitch = (Switch) myView.findViewById(R.id.inbound_switch);
-        // *****************************************************************
-        inboundDate = (TextView) myView.findViewById(R.id.inbound_date);
-        outboundDate = (TextView) myView.findViewById(R.id.outbound_date);
-        // ******************************************************************
-
+        ButterKnife.bind(this, myView);
         // User will change the visibility of inboundDate TextView(by using switch) if he would need this option
         inboundDate.setVisibility(View.INVISIBLE);
-
-        outboundText = (AutoCompleteTextView) myView.findViewById(R.id.outbound_text);
         outboundText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
@@ -70,8 +68,6 @@ public class FlightsFragment extends Fragment implements View.OnClickListener, C
                 getAutoSuggestLocation(editable.toString());
             }
         });
-
-        inboundText = (AutoCompleteTextView) myView.findViewById(R.id.inbound_text);
         inboundText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
@@ -84,7 +80,6 @@ public class FlightsFragment extends Fragment implements View.OnClickListener, C
                 getAutoSuggestLocation(editable.toString());
             }
         });
-
 
         inboundSwitch.setOnCheckedChangeListener(this);
         searchButton.setOnClickListener(this);

@@ -18,6 +18,8 @@ import android.widget.Toast;
 
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import progernapplications.scyscannerapplication_v2.R;
 import progernapplications.scyscannerapplication_v2.config.Config;
 import progernapplications.scyscannerapplication_v2.config.Other;
@@ -35,54 +37,42 @@ import retrofit.Response;
 
 public class SettingsFragment extends Fragment implements AdapterView.OnItemClickListener, View.OnClickListener {
 
-
-    private AutoCompleteTextView localesText, marketCountryText, currencyText;
     private ArrayAdapter<Locale> localeArrayAdapter;
     private ArrayAdapter<MarketCountry> marketCountryArrayAdapter;
     private ArrayAdapter<Currency> currencyArrayAdapter;
-
     private List<MarketCountry> markets;
     private List<Currency> currencies;
     private List<Locale> locales;
     private Context context;
-
     private Snackbar successBar;
+
+    @BindView (R.id.locale_autocomp) AutoCompleteTextView localesText;
+    @BindView (R.id.marketCountry_autocomp) AutoCompleteTextView marketCountryText;
+    @BindView (R.id.currency_autocomp) AutoCompleteTextView currencyText;
+    @BindView(R.id.settings_submit_button) Button submitButton;
 
 
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View myView = inflater.inflate(R.layout.fragment_settings, container, false);
         getActivity().setTitle("Settings");
-        localesText = (AutoCompleteTextView) myView.findViewById(R.id.locale_autocomp);
+        View myView = inflater.inflate(R.layout.fragment_settings, container, false);
+        ButterKnife.bind(this, myView);
         context = getActivity().getApplicationContext();
-        marketCountryText = (AutoCompleteTextView) myView.findViewById(R.id.marketCountry_autocomp);
-        currencyText = (AutoCompleteTextView) myView.findViewById(R.id.currency_autocomp);
         localesText.setOnItemClickListener(this);
-        Button submitButton = (Button) myView.findViewById(R.id.settings_submit_button);
         submitButton.setOnClickListener(this);
+
+        // Perform requests when user enters the fragment
         getLocalesRequest();
         getCurrenciesRequest();
 
-        AlertDialog.Builder helpDialogBuilder = new AlertDialog.Builder(getContext());
-        helpDialogBuilder.setTitle("Please notice")
-                .setMessage(Other.SETTINGS_DIALOG_MESSAGE)
-                .setCancelable(false)
-                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        dialogInterface.dismiss();
-                        Other.ALERT_COUNTER = 1;
-                    }
-                });
-        AlertDialog helpAlert = helpDialogBuilder.create();
-        if (Other.ALERT_COUNTER < 1) helpAlert.show();
-
+        if (Other.ALERT_COUNTER < 1) createHelpDialog().show();
 
         return myView;
     }
 
+    // HTTP-Requests block  ******************************
     private void getLocalesRequest() {
         Call<Locales> call = Network.API.getLocales(Config.ACCEPT);
         call.enqueue(new Callback<Locales>() {
@@ -103,6 +93,7 @@ public class SettingsFragment extends Fragment implements AdapterView.OnItemClic
             }
         });
     }
+
 
     private void getMarketCountriesRequest() {
         Call<Markets> call = Network.API.getMarketCountries(Config.ACCEPT, Config.LOCALE);
@@ -147,6 +138,10 @@ public class SettingsFragment extends Fragment implements AdapterView.OnItemClic
         });
     }
 
+
+    // ****************************************************
+
+    // Gets the locale code for API tickets request
     private String getLocaleCode(String localeName) {
         for (int i = 0; i < locales.size(); i++) {
             if (localeName.equals(locales.get(i).getName())) return locales.get(i).getCode();
@@ -155,6 +150,7 @@ public class SettingsFragment extends Fragment implements AdapterView.OnItemClic
         return "en-GB";
     }
 
+    // Gets the market country code for API tickets request
     private String getMarketCountryCode(String marketCountryName) {
         for (int i = 0; i < markets.size(); i++) {
             if (marketCountryName.equals(markets.get(i).getName())) return markets.get(i).getCode();
@@ -195,6 +191,24 @@ public class SettingsFragment extends Fragment implements AdapterView.OnItemClic
         super.onActivityCreated(savedInstanceState);
         getActivity().setTitle("Settings");
         successBar = Snackbar.make(getView(), "Your settings have been saved", Snackbar.LENGTH_SHORT);
+
+    }
+
+    public AlertDialog createHelpDialog()
+    {
+        AlertDialog.Builder helpDialogBuilder = new AlertDialog.Builder(getContext());
+        helpDialogBuilder.setTitle("Please notice")
+                .setMessage(Other.SETTINGS_DIALOG_MESSAGE)
+                .setCancelable(false)
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                        Other.ALERT_COUNTER = 1;
+                    }
+                });
+        AlertDialog helpAlert = helpDialogBuilder.create();
+        return helpAlert;
 
     }
 }
