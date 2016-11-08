@@ -2,11 +2,14 @@ package progernapplications.scyscannerapplication_v2.fragments;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -114,7 +117,15 @@ public class FlightsFragment extends Fragment implements View.OnClickListener, C
                     Config.OUTBOUND_LOCATION = getLocationId(outboundText.getText().toString());
                 if (!(inboundText.getText().toString().equals("")))
                     Config.INBOUND_LOCATION = getLocationId(inboundText.getText().toString());
-                Toast.makeText(getContext(), Config.OUTBOUND_LOCATION + " --- " + Config.INBOUND_LOCATION, Toast.LENGTH_SHORT).show();
+              Intent browserIntent = new Intent(Intent.ACTION_VIEW);
+                browserIntent.setData(Uri.parse(Config.REFERAL_URL + Config.MARKET_COUNTRY + "/"
+                        + Config.CURRENCY + "/"
+                        + Config.LOCALE + "/" +
+                        Config.OUTBOUND_LOCATION +
+                        "/" + Config.INBOUND_LOCATION + "/"
+                        + outboundDate.getText() +
+                        "/" + inboundDate.getText() + "?" + Config.API_KEY));
+                startActivity(browserIntent);
                 break;
             case R.id.outbound_date:
                 Other.setDateSetChecker(0);
@@ -124,6 +135,8 @@ public class FlightsFragment extends Fragment implements View.OnClickListener, C
                 Other.setDateSetChecker(1);
                 onCreateDialog().show();
                 break;
+
+
 
 
         }

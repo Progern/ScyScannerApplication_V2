@@ -14,8 +14,11 @@ import progernapplications.scyscannerapplication_v2.models.Places;
 import retrofit.Call;
 import retrofit.GsonConverterFactory;
 import retrofit.Retrofit;
+import retrofit.http.Field;
+import retrofit.http.FormUrlEncoded;
 import retrofit.http.GET;
 import retrofit.http.Header;
+import retrofit.http.Headers;
 import retrofit.http.POST;
 import retrofit.http.Path;
 import retrofit.http.Query;
@@ -51,8 +54,23 @@ public interface RequestService {
                                       @Path("locale") String locale, @Query("query") String query);
 
 
-    // Tickets request
-    @POST("http://partners.api.skyscanner.net/apiservices/pricing/v1.0")
-    Call<String> createPollSession();
+    // ScyScanner is currently NOT SUPPORTING this feature
+
+    @FormUrlEncoded
+    @POST("/apiservices/pricing/v1.0")
+    Call<String> createPollSession(
+            @Header("Accept") String accept,
+            @Header("Content-Type") String contentType,
+            @Query("apiKey=") String apikey,
+            @Field("country") String country,
+            @Field("currency") String currency,
+            @Field("locale") String locale,
+            @Field("originplace") String originplace,
+            @Field("destinationplace") String destinationplace,
+            @Field("outbounddate") String outbounddate,
+            @Field("inbounddate") String inbounddate
+    );
+
+
 
 }
