@@ -16,7 +16,7 @@
             android:layout_alignTop="@+id/view2"
             android:layout_marginTop="10dp"
             android:background="@drawable/locations_frame"
-            android:hint="Currency"
+            android:hint="@string/currency"
             android:inputType="textPhonetic"/>
 
         <View
@@ -36,7 +36,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="10dp"
             android:background="@drawable/locations_frame"
-            android:hint="Market country"
+            android:hint="@string/market_country"
             android:inputType="textPhonetic"/>
 
         <View
@@ -56,7 +56,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="10dp"
             android:background="@drawable/locations_frame"
-            android:hint="Language*"
+            android:hint="@string/language"
             android:inputType="textPhonetic"/>
 
         <Button
@@ -67,7 +67,7 @@
             android:layout_alignStart="@+id/currency_autocomp"
             android:layout_marginBottom="10dp"
             android:background="@drawable/search_button"
-            android:text="Submit"
+            android:text="@string/submit_button"
             android:textColor="@color/colorPrimary" />
 
         <ImageView
@@ -97,15 +97,36 @@
             android:layout_marginRight="10dp"
             android:src="@drawable/currency_icon" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="*"
-            android:textSize="25sp"
-            android:textColor="@color/colorPrimaryText"
-            android:layout_alignTop="@+id/language_image"
+
+        <ImageView
+            android:id="@+id/clear_country"
+            android:layout_width="12dp"
+            android:layout_height="12dp"
+            android:layout_above="@+id/view2"
+            android:layout_marginBottom="13dp"
+            android:layout_marginLeft="5dp"
+            android:layout_toEndOf="@+id/marketCountry_autocomp"
+            android:src="@drawable/cross" />
+
+        <ImageView
+            android:id="@+id/clear_currency"
+            android:layout_width="12dp"
+            android:layout_height="12dp"
+            android:layout_alignTop="@+id/currency_autocomp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="13dp"
+            android:layout_toEndOf="@+id/currency_autocomp"
+            android:src="@drawable/cross" />
+
+        <ImageView
+            android:id="@+id/clear_language"
+            android:layout_width="12dp"
+            android:layout_height="12dp"
+            android:layout_above="@+id/view"
+            android:layout_marginBottom="13dp"
+            android:layout_marginLeft="5dp"
             android:layout_toEndOf="@+id/locale_autocomp"
-            android:layout_marginLeft="5dp" />
+            android:src="@drawable/cross" />
 
 
     </RelativeLayout>

@@ -14,6 +14,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import java.util.List;
@@ -37,6 +38,20 @@ import retrofit.Response;
 
 public class SettingsFragment extends Fragment implements AdapterView.OnItemClickListener, View.OnClickListener {
 
+    @BindView(R.id.locale_autocomp)
+    AutoCompleteTextView localesText;
+    @BindView(R.id.marketCountry_autocomp)
+    AutoCompleteTextView marketCountryText;
+    @BindView(R.id.currency_autocomp)
+    AutoCompleteTextView currencyText;
+    @BindView(R.id.settings_submit_button)
+    Button submitButton;
+    @BindView(R.id.clear_country)
+    ImageView clear_country_field;
+    @BindView(R.id.clear_currency)
+    ImageView clear_currency_field;
+    @BindView(R.id.clear_language)
+    ImageView clear_language_field;
     private ArrayAdapter<Locale> localeArrayAdapter;
     private ArrayAdapter<MarketCountry> marketCountryArrayAdapter;
     private ArrayAdapter<Currency> currencyArrayAdapter;
@@ -45,13 +60,6 @@ public class SettingsFragment extends Fragment implements AdapterView.OnItemClic
     private List<Locale> locales;
     private Context context;
     private Snackbar successBar;
-
-    @BindView (R.id.locale_autocomp) AutoCompleteTextView localesText;
-    @BindView (R.id.marketCountry_autocomp) AutoCompleteTextView marketCountryText;
-    @BindView (R.id.currency_autocomp) AutoCompleteTextView currencyText;
-    @BindView(R.id.settings_submit_button) Button submitButton;
-
-
 
     @Nullable
     @Override
@@ -62,6 +70,9 @@ public class SettingsFragment extends Fragment implements AdapterView.OnItemClic
         context = getActivity().getApplicationContext();
         localesText.setOnItemClickListener(this);
         submitButton.setOnClickListener(this);
+        clear_country_field.setOnClickListener(this);
+        clear_currency_field.setOnClickListener(this);
+        clear_language_field.setOnClickListener(this);
 
         // Perform requests when user enters the fragment
         getLocalesRequest();
@@ -183,6 +194,18 @@ public class SettingsFragment extends Fragment implements AdapterView.OnItemClic
                 } catch (NullPointerException ex) {
                 }
                 break;
+
+            case R.id.clear_country:
+                marketCountryText.setText("");
+                break;
+
+            case R.id.clear_currency:
+                currencyText.setText("");
+                break;
+
+            case R.id.clear_language:
+                localesText.setText("");
+                break;
         }
     }
 
@@ -198,7 +221,7 @@ public class SettingsFragment extends Fragment implements AdapterView.OnItemClic
     {
         AlertDialog.Builder helpDialogBuilder = new AlertDialog.Builder(getContext());
         helpDialogBuilder.setTitle("Please notice")
-                .setMessage(Other.SETTINGS_DIALOG_MESSAGE)
+                .setMessage(R.string.settings_dialog)
                 .setCancelable(false)
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override

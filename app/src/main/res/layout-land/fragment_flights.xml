@@ -17,24 +17,10 @@
             android:layout_marginLeft="10dp"
             android:layout_marginTop="20dp"
             android:background="@drawable/locations_frame"
-            android:hint="Outbound location"
+            android:hint="@string/outbound_location"
+            android:inputType="textPhonetic"
             android:textColor="@color/colorPrimaryText"
-            android:textSize="20sp"
-            android:inputType="textPhonetic"/>
-
-        <AutoCompleteTextView
-            android:id="@+id/inbound_text"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/locations_frame"
-            android:hint="Inbound location"
-            android:textColor="@color/colorPrimaryText"
-            android:textSize="20sp"
-            android:inputType="textPhonetic"/>
+            android:textSize="20sp" />
 
         <AutoCompleteTextView
             android:id="@+id/outbound_date"
@@ -45,10 +31,10 @@
             android:layout_marginLeft="30dp"
             android:layout_marginTop="25dp"
             android:background="@drawable/locations_frame"
-            android:hint="Outbound date"
+            android:hint="@string/outbound_date"
+            android:inputType="textPhonetic"
             android:textColor="@color/colorPrimaryText"
-            android:textSize="15sp"
-            android:inputType="textPhonetic"/>
+            android:textSize="15sp" />
 
         <AutoCompleteTextView
             android:id="@+id/inbound_date"
@@ -59,10 +45,10 @@
             android:layout_marginRight="30dp"
             android:layout_marginTop="25dp"
             android:background="@drawable/locations_frame"
-            android:hint="Inbound date"
+            android:hint="@string/inbound_date"
+            android:inputType="textPhonetic"
             android:textColor="@color/colorPrimaryText"
-            android:textSize="15sp"
-            android:inputType="textPhonetic"/>
+            android:textSize="15sp" />
 
         <Button
             android:id="@+id/search_button"
@@ -72,7 +58,7 @@
             android:layout_marginBottom="30dp"
             android:layout_toEndOf="@+id/outbound_text"
             android:background="@drawable/search_button"
-            android:text="Search"
+            android:text="@string/search"
             android:textColor="@color/colorPrimary" />
 
         <ImageView
@@ -84,13 +70,46 @@
             android:src="@drawable/change_locations" />
 
         <Switch
+            android:id="@+id/inbound_switch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Inbound"
-            android:id="@+id/inbound_switch"
-            android:textSize="15sp"
-            android:layout_below="@+id/inbound_date"
             android:layout_alignStart="@+id/inbound_date"
-            android:layout_marginTop="10dp" />
+            android:layout_below="@+id/inbound_date"
+            android:layout_marginTop="10dp"
+            android:text="@string/inbound_switch_text"
+            android:textSize="15sp" />
+
+        <ImageView
+            android:id="@+id/clear_outbound"
+            android:layout_width="12dp"
+            android:layout_height="12dp"
+            android:layout_alignBottom="@+id/outbound_text"
+            android:layout_marginBottom="14dp"
+            android:layout_marginLeft="5dp"
+            android:layout_toEndOf="@+id/outbound_text"
+            android:src="@drawable/cross" />
+
+        <AutoCompleteTextView
+            android:id="@+id/inbound_text"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/change_routes_imgbut"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/locations_frame"
+            android:hint="@string/inbound_location"
+            android:inputType="textPhonetic"
+            android:textColor="@color/colorPrimaryText"
+            android:textSize="20sp" />
+
+        <ImageView
+            android:id="@+id/clear_inbound"
+            android:layout_width="12dp"
+            android:layout_height="12dp"
+            android:layout_alignTop="@+id/clear_outbound"
+            android:layout_marginRight="5dp"
+            android:layout_toStartOf="@+id/inbound_text"
+            android:src="@drawable/cross" />
     </RelativeLayout>
 </LinearLayout>

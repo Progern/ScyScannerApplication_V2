@@ -13,6 +13,21 @@
     <string name="information">Information</string>
     <string name="other">Other</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
+
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="outbound_location">Outbound location</string>
+    <string name="inbound_location">Inbound location</string>
+    <string name="outbound_date">Outbound date</string>
+    <string name="inbound_date">Inbound date</string>
+    <string name="search">Search</string>
+    <string name="inbound_switch_text">Inbound</string>
+    <string name="currency">Currency</string>
+    <string name="market_country">Market country</string>
+    <string name="language">Language*</string>
+    <string name="submit_button">Submit</string>
+
+    <string name="unsupport_dialog">The ScyScanner is currently not supporting Live Pricing. So, we must use referral links now.
+    We are sorry for this inconvenience.</string>
+    <string name="settings_dialog">If you want to change settings the Language field is REQUIRED!</string>
+
 </resources>

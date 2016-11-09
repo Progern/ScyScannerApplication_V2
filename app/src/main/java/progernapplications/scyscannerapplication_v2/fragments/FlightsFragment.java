@@ -2,25 +2,30 @@ package progernapplications.scyscannerapplication_v2.fragments;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.DatePicker;
+import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.Calendar;
 import java.util.List;
 
 import butterknife.BindView;
@@ -39,15 +44,29 @@ import retrofit.Response;
 
 public class FlightsFragment extends Fragment implements View.OnClickListener, CompoundButton.OnCheckedChangeListener {
 
-    @BindView(R.id.outbound_text) AutoCompleteTextView outboundText;
-    @BindView(R.id.inbound_text) AutoCompleteTextView inboundText;
-    @BindView(R.id.outbound_date) TextView outboundDate;
-    @BindView(R.id.inbound_date) TextView inboundDate;
-    @BindView(R.id.inbound_switch) Switch inboundSwitch;
-    @BindView(R.id.search_button) Button searchButton;
+    @BindView(R.id.outbound_text)
+    AutoCompleteTextView outboundText;
+    @BindView(R.id.inbound_text)
+    AutoCompleteTextView inboundText;
+    @BindView(R.id.outbound_date)
+    TextView outboundDate;
+    @BindView(R.id.inbound_date)
+    TextView inboundDate;
+    @BindView(R.id.inbound_switch)
+    Switch inboundSwitch;
+    @BindView(R.id.search_button)
+    Button searchButton;
+    @BindView(R.id.clear_inbound)
+    ImageView clear_inbound_field;
+    @BindView(R.id.clear_outbound)
+    ImageView clear_outbound_field;
+    @BindView(R.id.change_routes_imgbut)
+    ImageView change_routes;
 
     private List<Place> placesList;
     private PlacesAdapter mAdapter;
+    private Animation anim;
+    private Calendar mCalendar;
     private DatePickerDialog.OnDateSetListener mCallBack = new DatePickerDialog.OnDateSetListener() {
         @Override
         public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
@@ -74,14 +93,18 @@ public class FlightsFragment extends Fragment implements View.OnClickListener, C
         getActivity().setTitle("Flights booking");
         View myView = inflater.inflate(R.layout.fragment_flights, container, false);
         ButterKnife.bind(this, myView);
+        mCalendar = Calendar.getInstance();
+        anim = AnimationUtils.loadAnimation(getContext(), R.anim.routes_change_rotation);
         // User will change the visibility of inboundDate TextView(by using switch) if he would need this option
         inboundDate.setVisibility(View.INVISIBLE);
         outboundText.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
 
             @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
 
             @Override
             public void afterTextChanged(Editable editable) {
@@ -90,10 +113,12 @@ public class FlightsFragment extends Fragment implements View.OnClickListener, C
         });
         inboundText.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
 
             @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
 
             @Override
             public void afterTextChanged(Editable editable) {
@@ -105,6 +130,14 @@ public class FlightsFragment extends Fragment implements View.OnClickListener, C
         searchButton.setOnClickListener(this);
         outboundDate.setOnClickListener(this);
         inboundDate.setOnClickListener(this);
+        clear_inbound_field.setOnClickListener(this);
+        clear_outbound_field.setOnClickListener(this);
+        change_routes.setOnClickListener(this);
+
+        if (Other.FLIGHTS_COUNTER < 1) {
+            createHelpDialog().show();
+        }
+
 
         return myView;
     }
@@ -117,7 +150,7 @@ public class FlightsFragment extends Fragment implements View.OnClickListener, C
                     Config.OUTBOUND_LOCATION = getLocationId(outboundText.getText().toString());
                 if (!(inboundText.getText().toString().equals("")))
                     Config.INBOUND_LOCATION = getLocationId(inboundText.getText().toString());
-              Intent browserIntent = new Intent(Intent.ACTION_VIEW);
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW);
                 browserIntent.setData(Uri.parse(Config.REFERAL_URL + Config.MARKET_COUNTRY + "/"
                         + Config.CURRENCY + "/"
                         + Config.LOCALE + "/" +
@@ -136,7 +169,18 @@ public class FlightsFragment extends Fragment implements View.OnClickListener, C
                 onCreateDialog().show();
                 break;
 
+            case R.id.clear_inbound:
+                inboundText.setText("");
+                break;
 
+            case R.id.clear_outbound:
+                outboundText.setText("");
+                break;
+
+            case R.id.change_routes_imgbut:
+                change_routes.startAnimation(anim);
+                changeRoutes();
+                break;
 
 
         }
@@ -189,7 +233,6 @@ public class FlightsFragment extends Fragment implements View.OnClickListener, C
         return mDateDialog;
     }
 
-
     @Override
     public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
         if (inboundSwitch.isChecked()) {
@@ -197,5 +240,26 @@ public class FlightsFragment extends Fragment implements View.OnClickListener, C
         } else inboundDate.setVisibility(View.INVISIBLE);
     }
 
+    public void changeRoutes() {
+        String tmp = inboundText.getText().toString();
+        inboundText.setText(outboundText.getText().toString());
+        outboundText.setText(tmp);
+    }
 
+    public AlertDialog createHelpDialog() {
+        AlertDialog.Builder helpDialogBuilder = new AlertDialog.Builder(getContext());
+        helpDialogBuilder.setTitle(" Some inconvenience")
+                .setMessage(R.string.unsupport_dialog)
+                .setCancelable(false)
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                        Other.FLIGHTS_COUNTER = 1;
+                    }
+                });
+        AlertDialog helpAlert = helpDialogBuilder.create();
+        return helpAlert;
+
+    }
 }
