@@ -71,19 +71,20 @@ public class FlightsFragment extends Fragment implements View.OnClickListener, C
         @Override
         public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
 
-            // ***************************************************************************************
-            // This is made, because Android month counter starts from 0, and ScyScanners starts from 1
-            // Plus ScyScanners requests require month formath, if month is < 10 : 01,02,03... etc
-            StringBuffer monthBuf = new StringBuffer();
-            if (i1 >= 10) monthBuf.append((i1 + 1));
-            else monthBuf.append("0" + (i1 + 1));
-            // ***************************************************************************************
+            if (i < Other.CURRENT_YEAR || i1 < Other.CURRENT_MONTH || i2 < Other.CURRENT_DAY)
+                Toast.makeText(getContext(), "The date is in the past.", Toast.LENGTH_SHORT).show();
+            else {
+                // This is made, because Android month counter starts from 0, and ScyScanners starts from 1
+                // Plus ScyScanners requests require month formath, if month is < 10 : 01,02,03... etc
+                StringBuffer monthBuf = new StringBuffer();
+                if (i1 >= 10) monthBuf.append((i1 + 1));
+                else monthBuf.append("0" + (i1 + 1));
 
-
-            if (Other.DATE_SET_CHECKER == 0)
-                outboundDate.setText(i + "-" + monthBuf.toString() + "-" + i2);
-            else if (Other.DATE_SET_CHECKER == 1)
-                inboundDate.setText(i + "-" + monthBuf.toString() + "-" + i2);
+                if (Other.DATE_SET_CHECKER == 0)
+                    outboundDate.setText(i + "-" + monthBuf.toString() + "-" + i2);
+                else if (Other.DATE_SET_CHECKER == 1)
+                    inboundDate.setText(i + "-" + monthBuf.toString() + "-" + i2);
+            }
         }
     };
 
@@ -93,10 +94,16 @@ public class FlightsFragment extends Fragment implements View.OnClickListener, C
         getActivity().setTitle("Flights booking");
         View myView = inflater.inflate(R.layout.fragment_flights, container, false);
         ButterKnife.bind(this, myView);
+
         mCalendar = Calendar.getInstance();
+        setCurrentDate();
+
+
         anim = AnimationUtils.loadAnimation(getContext(), R.anim.routes_change_rotation);
+
         // User will change the visibility of inboundDate TextView(by using switch) if he would need this option
         inboundDate.setVisibility(View.INVISIBLE);
+
         outboundText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -229,10 +236,12 @@ public class FlightsFragment extends Fragment implements View.OnClickListener, C
     }
 
     protected Dialog onCreateDialog() {
-        DatePickerDialog mDateDialog = new DatePickerDialog(getContext(), mCallBack, 2016, 0, 1);
+        DatePickerDialog mDateDialog = new DatePickerDialog(getContext(), mCallBack, Other.CURRENT_YEAR, Other.CURRENT_MONTH, Other.CURRENT_DAY);
         return mDateDialog;
     }
 
+
+    // To set the Inbound field visible/invisible
     @Override
     public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
         if (inboundSwitch.isChecked()) {
@@ -240,12 +249,15 @@ public class FlightsFragment extends Fragment implements View.OnClickListener, C
         } else inboundDate.setVisibility(View.INVISIBLE);
     }
 
+
     public void changeRoutes() {
         String tmp = inboundText.getText().toString();
         inboundText.setText(outboundText.getText().toString());
         outboundText.setText(tmp);
     }
 
+
+    // Temporary dialog, cause ScyScanner doesn't supports Live Pricing API right now
     public AlertDialog createHelpDialog() {
         AlertDialog.Builder helpDialogBuilder = new AlertDialog.Builder(getContext());
         helpDialogBuilder.setTitle(" Some inconvenience")
@@ -261,5 +273,13 @@ public class FlightsFragment extends Fragment implements View.OnClickListener, C
         AlertDialog helpAlert = helpDialogBuilder.create();
         return helpAlert;
 
+    }
+
+
+    // A method to synchronize the current date of device with the date, that will be displayed in DatePicker
+    private void setCurrentDate() {
+        Other.CURRENT_YEAR = mCalendar.get(Calendar.YEAR);
+        Other.CURRENT_MONTH = mCalendar.get(Calendar.MONTH);
+        Other.CURRENT_DAY = mCalendar.get(Calendar.DAY_OF_MONTH);
     }
 }

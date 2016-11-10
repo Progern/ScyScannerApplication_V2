@@ -11,6 +11,7 @@ import android.view.MenuItem;
 
 import progernapplications.scyscannerapplication_v2.fragments.FlightsFragment;
 import progernapplications.scyscannerapplication_v2.fragments.SettingsFragment;
+import progernapplications.scyscannerapplication_v2.fragments.WelcomeFragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -30,6 +31,7 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportFragmentManager().beginTransaction().replace(R.id.mainFrame, new WelcomeFragment()).commit();
 
 
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

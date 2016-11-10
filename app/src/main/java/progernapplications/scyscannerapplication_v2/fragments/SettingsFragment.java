@@ -52,6 +52,7 @@ public class SettingsFragment extends Fragment implements AdapterView.OnItemClic
     ImageView clear_currency_field;
     @BindView(R.id.clear_language)
     ImageView clear_language_field;
+
     private ArrayAdapter<Locale> localeArrayAdapter;
     private ArrayAdapter<MarketCountry> marketCountryArrayAdapter;
     private ArrayAdapter<Currency> currencyArrayAdapter;
@@ -150,8 +151,6 @@ public class SettingsFragment extends Fragment implements AdapterView.OnItemClic
     }
 
 
-    // ****************************************************
-
     // Gets the locale code for API tickets request
     private String getLocaleCode(String localeName) {
         for (int i = 0; i < locales.size(); i++) {
@@ -175,7 +174,8 @@ public class SettingsFragment extends Fragment implements AdapterView.OnItemClic
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
         switch (view.getId()) {
             case R.id.row_item:
-                if(!(localesText.getText().toString().equals(""))) Config.LOCALE = getLocaleCode(localesText.getText().toString());
+                if (!(localesText.getText().toString().equals("")))
+                    Config.LOCALE = getLocaleCode(localesText.getText().toString());
                 // We send a request when we have selected preferable locale
                 getMarketCountriesRequest();
                 break;
@@ -188,8 +188,10 @@ public class SettingsFragment extends Fragment implements AdapterView.OnItemClic
         switch (view.getId()) {
             case R.id.settings_submit_button:
                 try {
-                    if (!(marketCountryText.getText().toString().equals(""))) Config.MARKET_COUNTRY = getMarketCountryCode(marketCountryText.getText().toString());
-                    if(!(currencyText.getText().toString().equals(""))) Config.CURRENCY = currencyText.getText().toString();
+                    if (!(marketCountryText.getText().toString().equals("")))
+                        Config.MARKET_COUNTRY = getMarketCountryCode(marketCountryText.getText().toString());
+                    if (!(currencyText.getText().toString().equals("")))
+                        Config.CURRENCY = currencyText.getText().toString();
                     successBar.show();
                 } catch (NullPointerException ex) {
                 }
@@ -217,8 +219,7 @@ public class SettingsFragment extends Fragment implements AdapterView.OnItemClic
 
     }
 
-    public AlertDialog createHelpDialog()
-    {
+    public AlertDialog createHelpDialog() {
         AlertDialog.Builder helpDialogBuilder = new AlertDialog.Builder(getContext());
         helpDialogBuilder.setTitle("Please notice")
                 .setMessage(R.string.settings_dialog)

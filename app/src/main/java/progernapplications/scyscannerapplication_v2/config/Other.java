@@ -11,6 +11,10 @@ public class Other
     public static int FIELD_ADAPTER_CHECKER = 0;
     public static int FLIGHTS_COUNTER = 0;
 
+    public static int CURRENT_YEAR = 0;
+    public static int CURRENT_MONTH = 0;
+    public static int CURRENT_DAY = 0;
+
     public static int getDateSetChecker() {
         return DATE_SET_CHECKER;
     }

@@ -29,5 +29,8 @@
     <string name="unsupport_dialog">The ScyScanner is currently not supporting Live Pricing. So, we must use referral links now.
     We are sorry for this inconvenience.</string>
     <string name="settings_dialog">If you want to change settings the Language field is REQUIRED!</string>
+    <string name="temroray_problem">We currently have some issues with Live Pricing of Tickets, so we must use referral links. That\'s a temporary problem. Thank you for your patience!</string>
+    <string name="welcome_2">Feel free to use Make Your Trip application.</string>
+    <string name="welcome_1">Welcome!</string>
 
 </resources>
