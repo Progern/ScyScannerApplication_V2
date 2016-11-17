@@ -71,13 +71,13 @@ public class FlightsFragment extends Fragment implements View.OnClickListener, C
         @Override
         public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
 
-            if (i < Other.CURRENT_YEAR || i1 < Other.CURRENT_MONTH || i2 < Other.CURRENT_DAY)
+            if (i < Other.CURRENT_YEAR)
                 Toast.makeText(getContext(), "The date is in the past.", Toast.LENGTH_SHORT).show();
             else {
                 // This is made, because Android month counter starts from 0, and ScyScanners starts from 1
                 // Plus ScyScanners requests require month formath, if month is < 10 : 01,02,03... etc
                 StringBuffer monthBuf = new StringBuffer();
-                if (i1 >= 10) monthBuf.append((i1 + 1));
+                if (i1 >= 10) monthBuf.append(i1 + 1);
                 else monthBuf.append("0" + (i1 + 1));
 
                 if (Other.DATE_SET_CHECKER == 0)
@@ -97,6 +97,7 @@ public class FlightsFragment extends Fragment implements View.OnClickListener, C
 
         mCalendar = Calendar.getInstance();
         setCurrentDate();
+        Toast.makeText(getContext(), Other.CURRENT_YEAR + "/" + Other.CURRENT_MONTH + "/" + Other.CURRENT_DAY, Toast.LENGTH_SHORT).show();
 
 
         anim = AnimationUtils.loadAnimation(getContext(), R.anim.routes_change_rotation);
